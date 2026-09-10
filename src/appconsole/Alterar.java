@@ -1,13 +1,10 @@
 package appconsole;
 
 import java.util.List;
-
 import com.db4o.ObjectContainer;
 import com.db4o.query.Query;
-
-import Util.Util;
-import modelo.Grupo;
-import modelo.Pessoa;
+import Util.*;
+import modelo.*;
 
 // Remove um relacionamento existente entre dois objetos do banco (sem apagar
 // nenhum dos dois): desfaz o vinculo N:N entre Bruno Lima e a Turma POB.

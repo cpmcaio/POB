@@ -11,22 +11,6 @@ import modelo.Mensagem;
 import modelo.Pessoa;
 
 public class Consultar {
-
-    public static void main(String[] args) {
-        Util.conectar();
-        ObjectContainer manager = Util.getManager();
-
-        try {
-            consultarMensagensPorTexto(manager, "db4o");
-            consultarMensagensPorPessoaEGrupo(manager, "Ana Souza", "Turma POB");
-            consultarPessoasComNGrupos(manager, 2);
-        } catch (Exception e) {
-            System.out.println("Erro ao consultar: " + e.getMessage());
-        } finally {
-            Util.desconectar();
-        }
-    }
-
     // 1) Quais as mensagens contendo o texto X
     private static void consultarMensagensPorTexto(ObjectContainer manager, String texto) {
         System.out.println("\n--- Mensagens contendo o texto \"" + texto + "\" ---");
@@ -52,8 +36,6 @@ public class Consultar {
     }
 
     // 3) Quais as pessoas com N grupos
-    // Predicate eh usado aqui porque o SODA (Query/descend/constrain) nao
-    // consegue comparar o TAMANHO de uma lista, apenas o valor de um atributo.
     private static void consultarPessoasComNGrupos(ObjectContainer manager, final int n) {
         System.out.println("\n--- Pessoas que participam de " + n + " grupo(s) ---");
 
@@ -62,7 +44,6 @@ public class Consultar {
                 return pessoa.getGrupos().size() == n;
             }
         });
-
         imprimir(resultado);
     }
 
@@ -75,4 +56,14 @@ public class Consultar {
             System.out.println(item);
         }
     }
+    public static void main(String[] args) {
+        Util.conectar();
+        ObjectContainer manager = Util.getManager();
+        consultarMensagensPorTexto(manager, "db4o");
+        consultarMensagensPorPessoaEGrupo(manager, "Ana Souza", "Turma POB");
+        consultarPessoasComNGrupos(manager, 2);
+        
+        Util.desconectar();
+    }
 }
+    
