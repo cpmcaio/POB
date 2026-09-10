@@ -11,17 +11,6 @@ import modelo.Grupo;
 import modelo.Mensagem;
 import modelo.Pessoa;
 
-// Apaga um objeto que possui relacionamentos: o Grupo "Projeto Final", que
-// tem membros (Pessoa <-> Grupo, N:N) e mensagens vinculadas.
-//
-// OBJETOS ORFAOS - se o grupo fosse apagado direto (manager.delete(grupo)):
-// 1) cada Pessoa membro ficaria com uma referencia, em pessoa.getGrupos(),
-//    para um Grupo que nao existe mais no banco;
-// 2) cada Mensagem do grupo ficaria com mensagem.getGrupo() apontando para
-//    um objeto inexistente, e o autor ficaria com uma Mensagem "fantasma"
-//    em pessoa.getMensagens().
-// Por isso cascadeOnDelete esta desligado em Util.java e os relacionamentos
-// sao desfeitos manualmente antes de cada delete.
 public class Apagar {
 
     public static void main(String[] args) {
@@ -45,14 +34,14 @@ public class Apagar {
             System.out.println("Grupo a ser apagado: " + grupo);
             System.out.println("Membros: " + grupo.getPessoas().size() + " | Mensagens: " + grupo.getMensagens().size());
 
-            // 1) Desfazer o vinculo N:N com cada membro
+
             List<Pessoa> membros = new ArrayList<>(grupo.getPessoas());
             for (Pessoa pessoa : membros) {
                 grupo.removerPessoa(pessoa);
                 manager.store(pessoa);
             }
 
-            // 2) Apagar as mensagens do grupo e remove-las tambem do autor
+
             List<Mensagem> mensagensDoGrupo = new ArrayList<>(grupo.getMensagens());
             for (Mensagem mensagem : mensagensDoGrupo) {
                 Pessoa autor = mensagem.getPessoa();
@@ -63,7 +52,7 @@ public class Apagar {
                 manager.delete(mensagem);
             }
 
-            // 3) Agora o grupo pode ser apagado sem deixar objetos orfaos
+
             manager.delete(grupo);
             manager.commit();
 

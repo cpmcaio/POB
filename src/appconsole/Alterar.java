@@ -6,8 +6,7 @@ import com.db4o.query.Query;
 import Util.*;
 import modelo.*;
 
-// Remove um relacionamento existente entre dois objetos do banco (sem apagar
-// nenhum dos dois): desfaz o vinculo N:N entre Bruno Lima e a Turma POB.
+
 public class Alterar {
 
     public static void main(String[] args) {
@@ -37,8 +36,6 @@ public class Alterar {
             System.out.println(pessoa.getNome() + " participa de " + pessoa.getGrupos().size() + " grupo(s)");
             System.out.println(grupo.getNome() + " tem " + grupo.getPessoas().size() + " membro(s)");
 
-            // Remove o relacionamento N:N; os dois objetos continuam existindo
-            // no banco, apenas o vinculo entre eles eh desfeito.
             grupo.removerPessoa(pessoa);
 
             manager.store(pessoa);

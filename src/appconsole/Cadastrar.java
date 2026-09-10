@@ -32,7 +32,6 @@ public class Cadastrar {
             manager.store(projeto);
 
             // ---------- Relacionamento N:N Pessoa <-> Grupo ----------
-            // uma unica chamada ja sincroniza os dois lados (ver Pessoa/Grupo.adicionarGrupo/adicionarPessoa)
             ana.adicionarGrupo(turma);
             bruno.adicionarGrupo(turma);
             ana.adicionarGrupo(projeto);
@@ -45,7 +44,6 @@ public class Cadastrar {
             manager.store(projeto);
 
             // ---------- Mensagens ----------
-            // o construtor de Mensagem ja registra a mensagem na lista da pessoa e do grupo
             Mensagem m1 = new Mensagem(GeradorID.gerarId(manager, Mensagem.class),
                     "09/09/2026 10:00", "Bom dia turma, aula comeca as 10h", ana, turma);
             manager.store(m1);

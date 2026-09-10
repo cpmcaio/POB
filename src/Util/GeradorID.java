@@ -1,14 +1,8 @@
 package Util;
-
 import java.lang.reflect.Method;
 import java.util.List;
-
 import com.db4o.ObjectContainer;
 
-/**
- * Gera IDs sequenciais para as classes do modelo, consultando o maior id
- * ja existente no banco para a classe informada.
- */
 public class GeradorID {
 
     public static int gerarId(ObjectContainer manager, Class<?> classe) {

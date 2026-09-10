@@ -46,7 +46,6 @@ public class Mensagem {
     	return pessoa;
     }
 
-    // mantem pessoa.getMensagens() sempre sincronizada com este lado
     public void setPessoa(Pessoa pessoa) {
         if (this.pessoa != null && this.pessoa != pessoa) {
             this.pessoa.getMensagens().remove(this);
@@ -60,8 +59,7 @@ public class Mensagem {
     public Grupo getGrupo() {
         return grupo;
     }
-
-    // mantem grupo.getMensagens() sempre sincronizada com este lado
+    
     public void setGrupo(Grupo grupo) {
         if (this.grupo != null && this.grupo != grupo) {
             this.grupo.getMensagens().remove(this);

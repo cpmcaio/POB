@@ -41,7 +41,6 @@ public class Pessoa {
         return mensagens;
     }
 
-    // relacionamento N:N com Grupo - uma chamada ja sincroniza os dois lados
     public void adicionarGrupo(Grupo grupo) {
         if (!grupos.contains(grupo)) {
             grupos.add(grupo);
@@ -55,7 +54,6 @@ public class Pessoa {
         }
     }
 
-    // relacionamento 1:N com Mensagem (quem "manda" eh Mensagem.setPessoa)
     public void adicionarMensagem(Mensagem mensagem) {
         if (!mensagens.contains(mensagem)) {
             mensagens.add(mensagem);

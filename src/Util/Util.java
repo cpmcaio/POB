@@ -15,18 +15,6 @@ public class Util {
         EmbeddedConfiguration config =
                 Db4oEmbedded.newConfiguration();
 
-        // ----- Configuracao de cascata do CRUD -----
-        // cascadeOnUpdate(true): ao salvar um objeto (ex.: Pessoa), as listas
-        // de objetos relacionados (grupos, mensagens) sao atualizadas junto,
-        // sem precisar salvar cada objeto relacionado manualmente.
-        //
-        // cascadeOnDelete(false): NAO apagamos em cascata. Pessoa <-> Grupo eh
-        // um relacionamento N:N (um Grupo pode ter varias Pessoas e uma Pessoa
-        // pode estar em varios Grupos), entao apagar uma Pessoa nao pode apagar
-        // um Grupo (ele pode ter outros membros) e vice-versa. Mensagem tambem
-        // nao deve apagar Pessoa/Grupo. Cada aplicacao de Apagar.java cuida
-        // manualmente de desfazer os relacionamentos antes de remover o objeto,
-        // para nao deixar objetos orfaos no banco.
         config.common().objectClass(Pessoa.class).cascadeOnUpdate(true);
         config.common().objectClass(Pessoa.class).cascadeOnDelete(false);
         config.common().objectClass(Pessoa.class).cascadeOnActivate(true);

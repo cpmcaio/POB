@@ -19,12 +19,14 @@ public class Consultar {
         consulta.constrain(Mensagem.class);
         consulta.descend("texto").constrain(texto).contains();
 
-        imprimir(consulta.execute());
+        List<Mensagem> resultado = consulta.execute();
+        for (Mensagem mensagem : resultado) {
+            System.out.println(mensagem);
+        }
     }
 
     // 2) Quais as mensagens da pessoa X no grupo X
-    private static void consultarMensagensPorPessoaEGrupo(ObjectContainer manager,
-            String nomePessoa, String nomeGrupo) {
+    private static void consultarMensagensPorPessoaEGrupo(ObjectContainer manager, String nomePessoa, String nomeGrupo) {
         System.out.println("\n--- Mensagens de \"" + nomePessoa + "\" no grupo \"" + nomeGrupo + "\" ---");
 
         Query consulta = manager.query();
@@ -32,7 +34,10 @@ public class Consultar {
         consulta.descend("pessoa").descend("nome").constrain(nomePessoa);
         consulta.descend("grupo").descend("nome").constrain(nomeGrupo);
 
-        imprimir(consulta.execute());
+        List<Mensagem> resultado = consulta.execute();
+        for (Mensagem mensagem : resultado) {
+            System.out.println(mensagem + " | Autor: " + mensagem.getPessoa().getNome() + " | Grupo: " + mensagem.getGrupo().getNome());
+        }
     }
 
     // 3) Quais as pessoas com N grupos
@@ -44,16 +49,8 @@ public class Consultar {
                 return pessoa.getGrupos().size() == n;
             }
         });
-        imprimir(resultado);
-    }
-
-    private static void imprimir(List<?> resultado) {
-        if (resultado.isEmpty()) {
-            System.out.println("Nenhum resultado encontrado.");
-            return;
-        }
-        for (Object item : resultado) {
-            System.out.println(item);
+        for (Pessoa pessoa : resultado) {
+            System.out.println(pessoa);
         }
     }
     public static void main(String[] args) {
