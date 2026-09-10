@@ -41,28 +41,36 @@ public class Pessoa {
         return mensagens;
     }
 
+    // relacionamento N:N com Grupo - uma chamada ja sincroniza os dois lados
     public void adicionarGrupo(Grupo grupo) {
-        grupos.add(grupo);
+        if (!grupos.contains(grupo)) {
+            grupos.add(grupo);
+            grupo.adicionarPessoa(this);
+        }
     }
 
     public void removerGrupo(Grupo grupo) {
-        grupos.remove(grupo);
+        if (grupos.remove(grupo)) {
+            grupo.removerPessoa(this);
+        }
     }
 
+    // relacionamento 1:N com Mensagem (quem "manda" eh Mensagem.setPessoa)
     public void adicionarMensagem(Mensagem mensagem) {
-        mensagens.add(mensagem);
+        if (!mensagens.contains(mensagem)) {
+            mensagens.add(mensagem);
+            mensagem.setPessoa(this);
+        }
     }
 
     public void removerMensagem(Mensagem mensagem) {
-        mensagens.remove(mensagem);
+        if (mensagens.remove(mensagem)) {
+            mensagem.setPessoa(null);
+        }
     }
 
     @Override
     public String toString() {
-        return "Pessoa{" +
-                "id=" + id +
-                ", nome='" + nome + "'" +
-                '}';
+        return "Pessoa [id=" + id + ", nome=" + nome + "]";
     }
 }
-
